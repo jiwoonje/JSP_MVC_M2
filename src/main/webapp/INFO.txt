@@ -32,11 +32,57 @@ MVC (Model, View, Controller) : M, V, C 분리해서 개발하는 환경
 		
 ========================================================================================
 1. DB 연결 클래스 생성 : Connection 객체 사용할 DB 연결
-
+	- common.JDBCUtil.java
+	
 2. DB(Oracle)에 개발할 테이블 생성
+	- users		: 사용자 정보, user, admin
+	- board		: user, admin 게시판
+	- products	: admin(관리자만 접근 가능)
+	
+========================================================================================
+-- MVC로 개발될 테이블
 
+create table board (
+    seq number(5) not null primary key,
+    title varchar2(200) null,
+    write varchar2(20) null,
+    content varchar2(2000) null,
+    regdate date default sysdate null,
+    cnt number(5) default 0 null
+);
+
+create table users (
+    id varchar2(8) not null primary key,
+    password varchar2(8) null,
+    name varchar2(20) null,
+    role varchar2(5) null
+);
+
+create table products (
+    p_code number(5) not null primary key,
+    p_name varchar2(200) null,
+    p_kind char(1) null,
+    p_price varchar2(10) null,
+    p_content varchar2(2000) null,
+    p_quantity varchar2(5),
+    p_indate date default sysdate null
+);
+========================================================================================
 3. Controller : 서블릿으로 생성
 	- 서블릿 : *.java ===> 웹페이지로 출력. jsp의 <% %> ==톰캣==> 서블릿 으로 변환 후 출력
+	- 작동 :
+			- web.xml 셋팅 : client 요청에 대한 controller Mapping <== (x)
+			- 이노테이션으로 셋팅 : @Webservlet ("*.do")
+		
+		- doGet (Request req, Response resp) : Client가 보내는 get 요청을 받는 메소드
+		- doPost (Request req, Response resp) : Client가 보내는 post 요청을 받는 메소드
+		
+	- Client가 서버에게 요청
+		- get	: URL을 사용해서 요청, form method = "get"
+			- URL 뒤에 요청정보를 보냄, 용량의 제한이 있음.
+		- post : form method = "post"
+			- http 헤더 앞에 파라미터를 서버로 보냄
+	
 	
 4. DTO 생성
 
