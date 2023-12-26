@@ -64,7 +64,25 @@ public class BoardDAO {
 			// pstmt를 실행 후 rs로 리턴
 			rs = pstmt.executeQuery();
 			
-			System.out.println("DB select 성공");
+			// System.out.println("DB select 성공");
+			
+			// rs의 각 레코드를 BoardDTO에 저장 ==> 각각의 DTO를 ArrayList에 저장
+				// if , do ~ while <==> while
+				// rs.next() : 다음 레코드 존재하면 true, 커서가 다음 레코드로 이동
+			while (rs.next()) {
+				// BoardDTO 객체 생성
+				BoardDTO board = new BoardDTO();
+					// 루프 블락 내에 선언
+				board.setSeq(rs.getInt("SEQ"));
+				board.setTitle(rs.getString("TITLE"));
+				board.setWrite(rs.getString("WRITE"));
+				board.setRegdate(rs.getDate("REGDATE"));
+				board.setCnt(rs.getInt("CNT"));
+				
+				// boardList : ArrayList에 add 메소드를 사용해서 boardDTO를 저장함
+				boardList.add(board);
+				
+			}
 			
 		}catch (Exception e) {
 			System.out.println("DB select 실패");
