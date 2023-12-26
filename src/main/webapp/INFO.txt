@@ -24,7 +24,7 @@ MVC (Model, View, Controller) : M, V, C 분리해서 개발하는 환경
 	- Controller : Client의 요청을 처리하는 클래스
 		- JSP(서블릿으로 컨트롤러 생성)
 		- web.xml 셋팅
-		- 이노테이션으로 셋팅 ㅣ @websevlet
+		- 어노테이션으로 셋팅 ㅣ @websevlet
 		
 		- 1. Client의 요청을 받는다.
 		- 2. DTO, DAO에게 일을 시킨다.			<-- 비즈니스 로직 처리
@@ -85,6 +85,13 @@ create table products (
 	
 	
 4. DTO 생성
+	client ===> controller ===> DTO ===> DAO ===> DB
+	DB의 BOARD 테이블의 각 컬럼의 값을 매칭해주는 DTO
+	- 필드의 접근 제어자는 private
+	- DB의 컬럼과 같은 데이터 형식으로 자료형이 지정
+	- 기본 생성자
+	- getter / setter , public 접근제어자가 지정
+	- toString() 오버라이딩
 
 5. DAO 생성
 
