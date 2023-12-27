@@ -131,17 +131,46 @@ public class Board_Controller extends HttpServlet {
 			// 5. 뷰 페이지
 			response.sendRedirect("getBoard.jsp");
 			
-			
-			
 		}else if (path.equals("/updateBoard.do")) {
 			System.out.println("/updateBoard.do 요청");
 			// 로직 처리
+			// 1. 클라이언트의 파라미터 변수를 받아서 새로운 변수에 저장
+			String title = request.getParameter("title");
+			String write = request.getParameter("write");
+			String content = request.getParameter("content");
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			
+			// 변수값 출력
+			/*
+			System.out.println(title);
+			System.out.println(write);
+			System.out.println(content);
+			System.out.println(seq);
+			*/
+			
+			// 2. 변수를 BoardDTO에 setter 주입
+			BoardDTO dto = new BoardDTO();
+			dto.setTitle(title);
+			dto.setWrite(write);
+			dto.setContent(content);
+			dto.setSeq(seq);
+			
+			// 3. BoardDAO에 updateBoard(dto)
+			BoardDAO dao = new BoardDAO();
+			dao.updateBoard(dto);
+			
+			// 4. 뷰 페이지로 이동
+			response.sendRedirect("getBoardList.do");
+			
+			
+			
 		}else if (path.equals("/deleteBoard.do")) {
 			System.out.println("/deleteBoard.do 요청");
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

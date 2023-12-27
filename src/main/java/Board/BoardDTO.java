@@ -23,6 +23,5 @@ public class BoardDTO {
 	private String content;
 	private Date regdate;
 	private int cnt;
-	
-	
+
 }

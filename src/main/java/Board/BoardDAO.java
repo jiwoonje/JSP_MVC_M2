@@ -26,8 +26,11 @@ public class BoardDAO {
 	// DB의 Board 테이블의 글 상세 조회 : 레코드 1개 <== dto
 	private final String BOARD_GET = "select * from board where seq = ?";
 	
+	// DB의 Board 테이블의 엄데이트 쿼리
+	private final String BOARD_UPDATE = "update board set title=?, write=?, content=? where seq=?";
+	
 	// insertBoard(BoardDTO dto) 메소드 :
-	public void insertBoard (BoardDTO dto) {
+	public void insertBoard(BoardDTO dto) {
 		System.out.println("insertBoard 기능 처리 =");
 		
 		try {
@@ -60,10 +63,12 @@ public class BoardDAO {
 	public List<BoardDTO> getBoardList(BoardDTO dto) {
 		// 중요 : ArrayList는 While 블락 밖에서 선언
 		//		 ArrayList에 저당ㅇ되는 BoardDTO는 While 내부에 선언
+		
 		List<BoardDTO> boardList = new ArrayList<>();
 		
 		try {
 			conn = JDBCUtil.getConnection();			// conn 객체 활성화 : Oracle, XE, HR12, 1234
+			// BOARD_LIST = "select * from board order by seq desc"
 			pstmt = conn.prepareStatement(BOARD_LIST);
 			
 			// pstmt를 실행 후 rs로 리턴
@@ -99,8 +104,8 @@ public class BoardDAO {
 		return boardList;
 	}
 	
-	// 글 상세 조회 : getBoard(DTO)
-	   public BoardDTO getBoard(BoardDTO dto) {
+	// 글 상세 조회 : getBoard(dto)
+	public BoardDTO getBoard(BoardDTO dto) {
 	      System.out.println("getBoard 메소드 호출 성공");
 	      BoardDTO board = new BoardDTO();
 	      
@@ -132,7 +137,33 @@ public class BoardDAO {
 	         JDBCUtil.close(rs, pstmt, conn);
 	      }
 	      
-	      return null;
-	   }
-
+			return board;
+		}
+	
+	// 글 수정 메소드 : updateBoard(dto)
+	public void updateBoard(BoardDTO dto) {
+		System.out.println("updateBoard 메소드 호출됨");
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			// BOARD_UPDATE = "update board set title=?, write=?, content=? where seq=?";
+			pstmt = conn.prepareStatement(BOARD_UPDATE);
+			
+			// ? 변수에 값을 할당
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getWrite());
+			pstmt.setString(3, dto.getContent());
+			pstmt.setInt(4, dto.getSeq());
+			
+			pstmt.executeUpdate();		// insert, update, delete 구문일 때 실행
+			
+			System.out.println("DB에 업데이트 성공");
+			
+		}catch (Exception e) {
+			System.out.println("DB에 업데이트 실패");
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt, conn);
+		}
+	}
 }

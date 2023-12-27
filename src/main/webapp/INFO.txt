@@ -93,10 +93,17 @@ create table products (
 	- getter / setter , public 접근제어자가 지정
 	- toString() 오버라이딩
 
-5. DAO 생성
+5. DAO 생성 : 테이블에 값을 insert, updaate, delete, select 쿼리, 메소드
 
-6. View 페이지 생성
+6. DAO의 메소드 테스트
 
+7. View 페이지 생성 : html, jsp <== webapp
+
+========================================================================================
+Ctrl + Shift + F : 코드 자동 정렬
+
+	client(view) ===========> *.do 요청 ======> Controller (요청 > 로직 처리(DTO, DAO) > 뷰 페이지)
+	html, jsp (서버에서 렌더링)
 
 
 
