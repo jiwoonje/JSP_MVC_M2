@@ -104,6 +104,8 @@ Ctrl + Shift + F : 코드 자동 정렬
 
 	client(view) ===========> *.do 요청 ======> Controller (요청 > 로직 처리(DTO, DAO) > 뷰 페이지)
 	html, jsp (서버에서 렌더링)
+	
+MVC 환경에서 : CRUD (Create, Read, Update, Delete)
 
 
 

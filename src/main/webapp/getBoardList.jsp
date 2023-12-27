@@ -60,6 +60,14 @@ try {
 			%>
 
 		</table>
+		<br>
+		<a href="index.jsp">
+			홈으로
+		</a>
+		<br>
+		<a href="insertBoard.jsp">
+			새 글 쓰기
+		</a>
 	</center>
 </body>
 </html>

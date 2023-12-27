@@ -62,6 +62,9 @@ board = (BoardDTO) session.getAttribute("board");
 		<br><br>
 		<a href="deleteBoard.do?seq=<%=board.getSeq()%>">
 			글 삭제
+		</a><br>
+		<a href="getBoardList.do">
+			목록으로
 		</a>
 	</center>
 
